@@ -1,0 +1,876 @@
+{
+	"connections": [
+		{
+			"from": "pxflib_7",
+			"from_port": 0,
+			"to": "pxflib_11",
+			"to_port": 0
+		},
+		{
+			"from": "pxflib_11",
+			"from_port": 1,
+			"to": "Material",
+			"to_port": 2
+		},
+		{
+			"from": "pxflib_11",
+			"from_port": 3,
+			"to": "Material",
+			"to_port": 3
+		},
+		{
+			"from": "pxflib_11",
+			"from_port": 8,
+			"to": "Material",
+			"to_port": 0
+		},
+		{
+			"from": "pxflib_11",
+			"from_port": 0,
+			"to": "Material",
+			"to_port": 1
+		},
+		{
+			"from": "tex3d_colorize_3",
+			"from_port": 0,
+			"to": "pxflib_7",
+			"to_port": 0
+		},
+		{
+			"from": "pxflib_2",
+			"from_port": 0,
+			"to": "tex3d_colorize_3",
+			"to_port": 0
+		},
+		{
+			"from": "sdf3d_sphere",
+			"from_port": 0,
+			"to": "sdf3d_smoothboolean",
+			"to_port": 1
+		},
+		{
+			"from": "pxflib",
+			"from_port": 0,
+			"to": "sdf3d_smoothboolean",
+			"to_port": 0
+		},
+		{
+			"from": "sdf3d_smoothboolean",
+			"from_port": 0,
+			"to": "pxflib_7",
+			"to_port": 8
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "309",
+	"node_position": {
+		"x": 0,
+		"y": 0
+	},
+	"nodes": [
+		{
+			"export_paths": {
+				"Godot": "/home/blouze/Documents/godot/FractalExplorer/fractal"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 120,
+				"y": 200
+			},
+			"parameters": {
+
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"type": "material_raymarching"
+		},
+		{
+			"name": "pxflib_11",
+			"node_position": {
+				"x": -180,
+				"y": 200
+			},
+			"parameters": {
+
+			},
+			"seed": -5947,
+			"seed_locked": true,
+			"shader_model": {
+				"code": "",
+				"global": "",
+				"inputs": [
+					{
+						"default": "0.0",
+						"function": true,
+						"label": "MFSDF",
+						"name": "MFSDF",
+						"shortdesc": "V4->V4 MFSDF",
+						"type": "v4v4"
+					}
+				],
+				"instance": "",
+				"longdesc": "Type - V4->V4 Generator\nCode - PauloFalcao\n\nDecompose the MFSDF into the most used attributes",
+				"name": "MFSDF Object Attributes",
+				"outputs": [
+					{
+						"shortdesc": "BaseColor",
+						"tex3d": "$MFSDF(vec4($uv.xyz,1.0)).xyz",
+						"type": "tex3d"
+					},
+					{
+						"shortdesc": "Metallic",
+						"tex3d_gs": "$MFSDF(vec4($uv.xyz,2.0)).x",
+						"type": "tex3d_gs"
+					},
+					{
+						"shortdesc": "Specular",
+						"tex3d_gs": "$MFSDF(vec4($uv.xyz,4.0)).x",
+						"type": "tex3d_gs"
+					},
+					{
+						"shortdesc": "Roughness",
+						"tex3d_gs": "$MFSDF(vec4($uv.xyz,5.0)).x",
+						"type": "tex3d_gs"
+					},
+					{
+						"shortdesc": "Emission",
+						"tex3d": "$MFSDF(vec4($uv.xyz,13.0)).xyz",
+						"type": "tex3d"
+					},
+					{
+						"shortdesc": "Normal",
+						"tex3d": "$MFSDF(vec4($uv.xyz,14.0)).xyz",
+						"type": "tex3d"
+					},
+					{
+						"shortdesc": "Alpha",
+						"tex3d_gs": "$MFSDF(vec4($uv.xyz,15.0)).x",
+						"type": "tex3d_gs"
+					},
+					{
+						"shortdesc": "Ambient",
+						"tex3d_gs": "$MFSDF(vec4($uv.xyz,19.0)).x",
+						"type": "tex3d_gs"
+					},
+					{
+						"sdf3d": "$MFSDF(vec4($uv.xyz,0.0)).w",
+						"shortdesc": "Object",
+						"type": "sdf3d"
+					}
+				],
+				"parameters": [
+
+				],
+				"shortdesc": "MFSDF Object Attributes"
+			},
+			"type": "shader"
+		},
+		{
+			"name": "pxflib",
+			"node_position": {
+				"x": -1220,
+				"y": 200
+			},
+			"parameters": {
+				"Correction": 3.027,
+				"Distance": 0.007,
+				"scale": 2,
+				"scale_x": 1,
+				"scale_y": 2,
+				"scale_z": 1,
+				"translate_x": 0,
+				"translate_y": "-$n_rot",
+				"translate_z": 0
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"shader_model": {
+				"code": "",
+				"global": "// https://www.shadertoy.com/view/XsX3zB\n//\n// The MIT License\n// Copyright © 2013 Nikita Miropolskiy\n// \n// ( license has been changed from CCA-NC-SA 3.0 to MIT\n//\n//   but thanks for attributing your source code when deriving from this sample \n//   with a following link: https://www.shadertoy.com/view/XsX3zB )\n//\n//\n// if you're looking for procedural noise implementation examples you might \n// also want to look at the following shaders:\n// \n// Noise Lab shader by candycat: https://www.shadertoy.com/view/4sc3z2\n//\n// Noise shaders by iq:\n//     Value    Noise 2D, Derivatives: https://www.shadertoy.com/view/4dXBRH\n//     Gradient Noise 2D, Derivatives: https://www.shadertoy.com/view/XdXBRH\n//     Value    Noise 3D, Derivatives: https://www.shadertoy.com/view/XsXfRH\n//     Gradient Noise 3D, Derivatives: https://www.shadertoy.com/view/4dffRH\n//     Value    Noise 2D             : https://www.shadertoy.com/view/lsf3WH\n//     Value    Noise 3D             : https://www.shadertoy.com/view/4sfGzS\n//     Gradient Noise 2D             : https://www.shadertoy.com/view/XdXGW8\n//     Gradient Noise 3D             : https://www.shadertoy.com/view/Xsl3Dl\n//     Simplex  Noise 2D             : https://www.shadertoy.com/view/Msf3WH\n//     Voronoise: https://www.shadertoy.com/view/Xd23Dh\n//\n//\n//\n\n// discontinuous pseudorandom uniformly distributed in [-0.5, +0.5]^3 */\nvec3 XsX3zB_random3(vec3 c) {\n\tfloat j = 4096.0*sin(dot(c,vec3(17.0, 59.4, 15.0)));\n\tvec3 r;\n\tr.z = fract(512.0*j);\n\tj *= .125;\n\tr.x = fract(512.0*j);\n\tj *= .125;\n\tr.y = fract(512.0*j);\n\treturn r-0.5;\n}\n\n// skew constants for 3d simplex functions\nconst float XsX3zB_F3 =  0.3333333;\nconst float XsX3zB_G3 =  0.1666667;\n\n// 3d simplex noise\nfloat XsX3zB_simplex3d(vec3 p) {\n\t // 1. find current tetrahedron T and it's four vertices\n\t // s, s+i1, s+i2, s+1.0 - absolute skewed (integer) coordinates of T vertices\n\t // x, x1, x2, x3 - unskewed coordinates of p relative to each of T vertices\n\t \n\t // calculate s and x\n\t vec3 s = floor(p + dot(p, vec3(XsX3zB_F3)));\n\t vec3 x = p - s + dot(s, vec3(XsX3zB_G3));\n\t \n\t // calculate i1 and i2\n\t vec3 e = step(vec3(0.0), x - x.yzx);\n\t vec3 i1 = e*(1.0 - e.zxy);\n\t vec3 i2 = 1.0 - e.zxy*(1.0 - e);\n\t \t\n\t // x1, x2, x3\n\t vec3 x1 = x - i1 + XsX3zB_G3;\n\t vec3 x2 = x - i2 + 2.0*XsX3zB_G3;\n\t vec3 x3 = x - 1.0 + 3.0*XsX3zB_G3;\n\t \n\t // 2. find four surflets and store them in d\n\t vec4 w, d;\n\t \n\t // calculate surflet weights\n\t w.x = dot(x, x);\n\t w.y = dot(x1, x1);\n\t w.z = dot(x2, x2);\n\t w.w = dot(x3, x3);\n\t \n\t // w fades from 0.6 at the center of the surflet to 0.0 at the margin\n\t w = max(0.6 - w, 0.0);\n\t \n\t // calculate surflet components\n\t d.x = dot(XsX3zB_random3(s), x);\n\t d.y = dot(XsX3zB_random3(s + i1), x1);\n\t d.z = dot(XsX3zB_random3(s + i2), x2);\n\t d.w = dot(XsX3zB_random3(s + 1.0), x3);\n\t \n\t // multiply d by w^4\n\t w *= w;\n\t w *= w;\n\t d *= w;\n\t \n\t // 3. return the sum of the four surflets\n\t return dot(d, vec4(52.0));\n}",
+				"inputs": [
+
+				],
+				"instance": "",
+				"longdesc": "Type - SDF3D Generator\nCode - Nikat\n\nMakes a non periodic noise using nikat code from https://www.shadertoy.com/view/XsX3zB",
+				"name": "Simplex Noise",
+				"outputs": [
+					{
+						"sdf3d": "(XsX3zB_simplex3d(($uv.xyz+vec3($translate_x,$translate_y,$translate_z))*vec3($scale_x,$scale_y,$scale_z)*$scale))/(1.0+$Correction*$scale)-$Distance",
+						"shortdesc": "TEX3D Output",
+						"type": "sdf3d"
+					}
+				],
+				"parameters": [
+					{
+						"control": "None",
+						"default": 8,
+						"label": "Scale",
+						"longdesc": "Noise scale",
+						"max": 32,
+						"min": 0,
+						"name": "scale",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "Scale X",
+						"longdesc": "Noise X scale",
+						"max": 16,
+						"min": 0,
+						"name": "scale_x",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "Scale Y",
+						"longdesc": "Noise Y scale",
+						"max": 16,
+						"min": 0,
+						"name": "scale_y",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "Scale Z",
+						"longdesc": "Noise Z scale",
+						"max": 16,
+						"min": 0,
+						"name": "scale_z",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Translate X",
+						"longdesc": "Noise X Translation",
+						"max": 100,
+						"min": 0,
+						"name": "translate_x",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Translate Y",
+						"longdesc": "Noise Y Translation",
+						"max": 100,
+						"min": 0,
+						"name": "translate_y",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Translate Z",
+						"longdesc": "Noise Z Translation",
+						"max": 100,
+						"min": 0,
+						"name": "translate_z",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Distance",
+						"longdesc": "Distance to surface",
+						"max": 0.5,
+						"min": -0.5,
+						"name": "Distance",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 2,
+						"label": "Correction",
+						"longdesc": "Keep this value as low as possible!\nIncrease this correction value if the resulting SDF is not perfect.\nA higher value will increase ray marching loop iterations and will result in higher render times.",
+						"max": 10,
+						"min": 0,
+						"name": "Correction",
+						"step": 0.001,
+						"type": "float"
+					}
+				],
+				"shortdesc": "Simplex Noise"
+			},
+			"type": "shader"
+		},
+		{
+			"name": "sdf3d_sphere",
+			"node_position": {
+				"x": -1020,
+				"y": 540
+			},
+			"parameters": {
+				"r": 1
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"type": "sdf3d_sphere"
+		},
+		{
+			"name": "pxflib_7",
+			"node_position": {
+				"x": -476,
+				"y": 200
+			},
+			"parameters": {
+				"Alpha": 0,
+				"AmbientOcclusion": 1,
+				"BaseColor": {
+					"a": 1,
+					"b": 1,
+					"g": 1,
+					"r": 1,
+					"type": "Color"
+				},
+				"Emission": 0,
+				"Metallic": 0,
+				"Normal": 0,
+				"Roughness": 0.305,
+				"Specular": 0.5,
+				"scale": 1
+			},
+			"seed": -5947,
+			"seed_locked": true,
+			"shader_model": {
+				"code": "",
+				"global": "",
+				"inputs": [
+					{
+						"default": "vec3(1.0)",
+						"function": true,
+						"label": "BaseColor",
+						"name": "BaseColor_tex3d",
+						"shortdesc": "TEX3D",
+						"type": "tex3d"
+					},
+					{
+						"default": "1.0",
+						"function": true,
+						"label": "Metallic",
+						"name": "Metallic_tex3d",
+						"shortdesc": "Grayscale TEX3D",
+						"type": "tex3d_gs"
+					},
+					{
+						"default": "1.0",
+						"function": true,
+						"label": "Specular",
+						"name": "Specular_tex3d",
+						"shortdesc": "Greyscale TEX3D",
+						"type": "tex3d_gs"
+					},
+					{
+						"default": "1.0",
+						"function": true,
+						"label": "Roughness",
+						"name": "Roughness_tex3d",
+						"shortdesc": "Greyscale TEX3D",
+						"type": "tex3d_gs"
+					},
+					{
+						"default": "vec3(1.0,1.0,1.0)",
+						"function": true,
+						"label": "Emission",
+						"name": "Emission_tex3d",
+						"shortdesc": "TEX3D",
+						"type": "tex3d"
+					},
+					{
+						"default": "vec3(0.0,1.0,0.0)",
+						"function": true,
+						"label": "Normal",
+						"name": "Normal_tex3d",
+						"shortdesc": "TEX3D",
+						"type": "tex3d"
+					},
+					{
+						"default": "1.0",
+						"function": true,
+						"label": "Alpha",
+						"name": "Alpha_tex3d",
+						"shortdesc": "Greyscale TEX3D",
+						"type": "tex3d_gs"
+					},
+					{
+						"default": "1.0",
+						"function": true,
+						"label": "Ambient Occlusion",
+						"longdesc": "Fake Ambient Occlusion",
+						"name": "AmbientOcclusion_tex3d",
+						"shortdesc": "Greyscale TEX3D",
+						"type": "tex3d_gs"
+					},
+					{
+						"default": "length($uv)-0.4 ",
+						"function": true,
+						"label": "Object",
+						"name": "sdf3d",
+						"shortdesc": "SDF3D",
+						"type": "sdf3d"
+					}
+				],
+				"instance": "// 0 - SDF                    (0,0,0,sdf)\n// 1 - BaseColor              (r,g,b,sdf) linear (0-1) \n// 2 - Metallic               (v,0,0,sdf)\n// 4 - Specular               (v,0,0,sdf)\n// 5 - Roughness              (v,0,0,sdf)\n//13 - Emission\t              (r,g,b,sdf) linear (0-infinite)\n//14 - Normal                 (x,y,z,sdf)\n//15 - Alpha                  (v,0,0,sdf)\n//19 - Ambient Occlusion      (v,0,0,sdf) \n//999 - Table ID - Identifies this table (0,0,0,0)\n\nvec4 PBRObjectMaker_$name(vec4 uv){\n\tfloat sdf=$sdf3d(uv.xyz/$scale)*$scale;\n\t//19 - Ambient Occlusion\n\tif (uv.w>18.5) {\n\t\treturn vec4($AmbientOcclusion*$AmbientOcclusion_tex3d(vec4(uv.xyz,19.0)),0.0,0.0,sdf);\n\t} else\n\t//15 - Alpha\n\tif (uv.w>14.5) {\n\t\treturn vec4($Alpha*$Alpha_tex3d(vec4(uv.xyz,15.0)),0.0,0.0,sdf);\n\t} else\n\t//14 - Normal\n\tif (uv.w>13.5) {\n\t\treturn vec4($Normal*$Normal_tex3d(vec4(uv.xyz,14.0)),sdf);\n\t} else\n\t//13 - Emission\n\tif (uv.w>12.5) {\n\t\treturn vec4($Emission*$Emission_tex3d(vec4(uv.xyz,13.0)),sdf);\n\t} else\n\t//5 - Roughness\n\tif (uv.w>4.5) {\n\t\treturn vec4($Roughness*$Roughness_tex3d(vec4(uv.xyz,5.0)),0.0,0.0,sdf);\n\t} else\n\t//4 - Specular\n\tif (uv.w>3.5) {\n\t\treturn vec4($Specular*$Specular_tex3d(vec4(uv.xyz,4.0)),0.0,0.0,sdf);\n\t} else\n\t//2 - Metallic\n\tif (uv.w>1.5) {\n\t\treturn vec4($Metallic*$Metallic_tex3d(vec4(uv.xyz,2.0)),0.0,0.0,sdf);\n\t} else\n\t//1 - BaseColor\n\tif (uv.w>0.5){\n\t\treturn vec4($BaseColor.rgb*$BaseColor_tex3d(vec4(uv.xyz,1.0)),sdf);\n\t} else\n\t//0 - SDF\n\t{\n\t\treturn vec4(vec3(0),sdf);\n\t}\n}",
+				"longdesc": "Type - V4->V4 Generator\nCode - PauloFalcao\n\nCreates a Multi Field SDF (MFSDF), a single function that defines the object (SDF) and all materials properties using a TEX3D for each property.",
+				"name": "MFSDF Object Maker",
+				"outputs": [
+					{
+						"shortdesc": "V4->V4 MFSDF ",
+						"type": "v4v4",
+						"v4v4": "PBRObjectMaker_$name($uv)"
+					}
+				],
+				"parameters": [
+					{
+						"default": {
+							"a": 1,
+							"b": 1,
+							"g": 1,
+							"r": 1
+						},
+						"label": "",
+						"name": "BaseColor",
+						"type": "color"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "",
+						"max": 1,
+						"min": 0,
+						"name": "Metallic",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0.5,
+						"label": "",
+						"max": 1,
+						"min": 0,
+						"name": "Specular",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "",
+						"max": 1,
+						"min": 0,
+						"name": "Roughness",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "",
+						"longdesc": "Emission Scale",
+						"max": 500,
+						"min": 0,
+						"name": "Emission",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "",
+						"longdesc": "Clearcoat Normal Scale",
+						"max": 1,
+						"min": 0,
+						"name": "Normal",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "",
+						"max": 1,
+						"min": 0,
+						"name": "Alpha",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "",
+						"max": 1,
+						"min": 0,
+						"name": "AmbientOcclusion",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "",
+						"longdesc": "Object scale",
+						"max": 4,
+						"min": 0,
+						"name": "scale",
+						"step": 0.001,
+						"type": "float"
+					}
+				],
+				"shortdesc": "MFSDF Object Maker"
+			},
+			"type": "shader"
+		},
+		{
+			"name": "remote_1",
+			"node_position": {
+				"x": -1389,
+				"y": 83
+			},
+			"parameters": {
+				"n_rot": 15.064
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"type": "remote",
+			"widgets": [
+				{
+					"default": 0.01,
+					"label": "n_rot",
+					"max": 0.1,
+					"min": 0,
+					"name": "n_rot",
+					"step": 0.001,
+					"type": "named_parameter"
+				}
+			]
+		},
+		{
+			"name": "pxflib_2",
+			"node_position": {
+				"x": -920,
+				"y": -100
+			},
+			"parameters": {
+				"brightness": 0,
+				"clamp": 1,
+				"contrast": 2,
+				"iterations": 5,
+				"persistence": 0.32,
+				"scale": 10,
+				"scale_x": 1,
+				"scale_y": 2,
+				"scale_z": 1,
+				"transx": 0,
+				"transy": 0,
+				"transz": 0
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"shader_model": {
+				"code": "vec3 $(name_uv)_out = vec3($(name)_bc($(name)_fbm($uv.xyz*vec3($scale_x,$scale_y,$scale_z)*0.5*$scale+vec3($transx,$transy,$transz),$persistence)*0.5+0.5,$contrast,$brightness));",
+				"global": "// https://www.shadertoy.com/view/XsX3zB\n//\n// The MIT License\n// Copyright © 2013 Nikita Miropolskiy\n// \n// ( license has been changed from CCA-NC-SA 3.0 to MIT\n//\n//   but thanks for attributing your source code when deriving from this sample \n//   with a following link: https://www.shadertoy.com/view/XsX3zB )\n//\n//\n// if you're looking for procedural noise implementation examples you might \n// also want to look at the following shaders:\n// \n// Noise Lab shader by candycat: https://www.shadertoy.com/view/4sc3z2\n//\n// Noise shaders by iq:\n//     Value    Noise 2D, Derivatives: https://www.shadertoy.com/view/4dXBRH\n//     Gradient Noise 2D, Derivatives: https://www.shadertoy.com/view/XdXBRH\n//     Value    Noise 3D, Derivatives: https://www.shadertoy.com/view/XsXfRH\n//     Gradient Noise 3D, Derivatives: https://www.shadertoy.com/view/4dffRH\n//     Value    Noise 2D             : https://www.shadertoy.com/view/lsf3WH\n//     Value    Noise 3D             : https://www.shadertoy.com/view/4sfGzS\n//     Gradient Noise 2D             : https://www.shadertoy.com/view/XdXGW8\n//     Gradient Noise 3D             : https://www.shadertoy.com/view/Xsl3Dl\n//     Simplex  Noise 2D             : https://www.shadertoy.com/view/Msf3WH\n//     Voronoise: https://www.shadertoy.com/view/Xd23Dh\n//\n//\n//\n\n// discontinuous pseudorandom uniformly distributed in [-0.5, +0.5]^3 */\nvec3 XsX3zB_oct_random3(vec3 c) {\n\tfloat j = 4096.0*sin(dot(c,vec3(17.0, 59.4, 15.0)));\n\tvec3 r;\n\tr.z = fract(512.0*j);\n\tj *= .125;\n\tr.x = fract(512.0*j);\n\tj *= .125;\n\tr.y = fract(512.0*j);\n\treturn r-0.5;\n}\n\n// skew constants for 3d simplex functions\nconst float XsX3zB_oct_F3 =  0.3333333;\nconst float XsX3zB_oct_G3 =  0.1666667;\n\n// 3d simplex noise\nfloat XsX3zB_oct_simplex3d(vec3 p) {\n\t // 1. find current tetrahedron T and it's four vertices\n\t // s, s+i1, s+i2, s+1.0 - absolute skewed (integer) coordinates of T vertices\n\t // x, x1, x2, x3 - unskewed coordinates of p relative to each of T vertices\n\t \n\t // calculate s and x\n\t vec3 s = floor(p + dot(p, vec3(XsX3zB_oct_F3)));\n\t vec3 x = p - s + dot(s, vec3(XsX3zB_oct_G3));\n\t \n\t // calculate i1 and i2\n\t vec3 e = step(vec3(0.0), x - x.yzx);\n\t vec3 i1 = e*(1.0 - e.zxy);\n\t vec3 i2 = 1.0 - e.zxy*(1.0 - e);\n\t \t\n\t // x1, x2, x3\n\t vec3 x1 = x - i1 + XsX3zB_oct_G3;\n\t vec3 x2 = x - i2 + 2.0*XsX3zB_oct_G3;\n\t vec3 x3 = x - 1.0 + 3.0*XsX3zB_oct_G3;\n\t \n\t // 2. find four surflets and store them in d\n\t vec4 w, d;\n\t \n\t // calculate surflet weights\n\t w.x = dot(x, x);\n\t w.y = dot(x1, x1);\n\t w.z = dot(x2, x2);\n\t w.w = dot(x3, x3);\n\t \n\t // w fades from 0.6 at the center of the surflet to 0.0 at the margin\n\t w = max(0.6 - w, 0.0);\n\t \n\t // calculate surflet components\n\t d.x = dot(XsX3zB_oct_random3(s), x);\n\t d.y = dot(XsX3zB_oct_random3(s + i1), x1);\n\t d.z = dot(XsX3zB_oct_random3(s + i2), x2);\n\t d.w = dot(XsX3zB_oct_random3(s + 1.0), x3);\n\t \n\t // multiply d by w^4\n\t w *= w;\n\t w *= w;\n\t d *= w;\n\t \n\t // 3. return the sum of the four surflets\n\t return dot(d, vec4(52.0));\n}",
+				"inputs": [
+
+				],
+				"instance": "float $(name)_fbm(vec3 coord, float persistence) {\n\tfloat normalize_factor = 0.0;\n\tfloat value = 0.0;\n\tfloat scale = 1.0;\n\tfloat size = 1.0;\n\tfor (int i = 0; i < $iterations; i++) {\n\t\tvalue += XsX3zB_oct_simplex3d(coord*size) * scale;\n\t\tnormalize_factor += scale;\n\t\tsize *= 2.0;\n\t\tscale *= persistence;\n\t}\n\treturn value / normalize_factor;\n}\n\nfloat $(name)_bc(float f,float contrast, float brightness) {\n\treturn f*contrast+brightness+0.5-contrast*0.5;\n}\n",
+				"longdesc": "Type - TEX3D Generator\nCode - Nikat\n\nMakes a non periodic noise with octaves using nikat code from https://www.shadertoy.com/view/XsX3zB",
+				"name": "Simplex Noise Octaves",
+				"outputs": [
+					{
+						"shortdesc": "TEX3D output",
+						"tex3d": "$clamp",
+						"type": "tex3d"
+					}
+				],
+				"parameters": [
+					{
+						"control": "None",
+						"default": 8,
+						"label": "Scale",
+						"longdesc": "Noise scale",
+						"max": 32,
+						"min": 0,
+						"name": "scale",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "Scale X",
+						"longdesc": "Noise X scale",
+						"max": 16,
+						"min": 0,
+						"name": "scale_x",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "Scale Y",
+						"longdesc": "Noise Y scale",
+						"max": 16,
+						"min": 0,
+						"name": "scale_y",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "Scale Z",
+						"longdesc": "Noise Z scale",
+						"max": 16,
+						"min": 0,
+						"name": "scale_z",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Translate X",
+						"longdesc": "Noise X translate",
+						"max": 100,
+						"min": 0,
+						"name": "transx",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Translate Y",
+						"longdesc": "Noise Y translate",
+						"max": 100,
+						"min": 0,
+						"name": "transy",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Translate Z",
+						"longdesc": "Noise Z translate",
+						"max": 100,
+						"min": 0,
+						"name": "transz",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"default": 12,
+						"label": "Iterations",
+						"longdesc": "Noise iterations / octaves",
+						"name": "iterations",
+						"type": "enum",
+						"values": [
+							{
+								"name": "1",
+								"value": "1"
+							},
+							{
+								"name": "2",
+								"value": "2"
+							},
+							{
+								"name": "3",
+								"value": "3"
+							},
+							{
+								"name": "4",
+								"value": "4"
+							},
+							{
+								"name": "5",
+								"value": "5"
+							},
+							{
+								"name": "6",
+								"value": "6"
+							},
+							{
+								"name": "7",
+								"value": "7"
+							},
+							{
+								"name": "8",
+								"value": "8"
+							},
+							{
+								"name": "9",
+								"value": "9"
+							},
+							{
+								"name": "10",
+								"value": "10"
+							},
+							{
+								"name": "11",
+								"value": "11"
+							},
+							{
+								"name": "12",
+								"value": "12"
+							},
+							{
+								"name": "13",
+								"value": "13"
+							},
+							{
+								"name": "14",
+								"value": "14"
+							},
+							{
+								"name": "15",
+								"value": "15"
+							},
+							{
+								"name": "16",
+								"value": "16"
+							}
+						]
+					},
+					{
+						"control": "None",
+						"default": 0.5,
+						"label": "Persistence",
+						"longdesc": "How higher octaves affect the output",
+						"max": 1,
+						"min": 0,
+						"name": "persistence",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 0,
+						"label": "Brightness",
+						"longdesc": "Overall brightness",
+						"max": 1,
+						"min": 0,
+						"name": "brightness",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"control": "None",
+						"default": 1,
+						"label": "Contrast",
+						"longdesc": "Overall Contrast",
+						"max": 1,
+						"min": 0,
+						"name": "contrast",
+						"step": 0.001,
+						"type": "float"
+					},
+					{
+						"default": 1,
+						"label": "Clamp",
+						"longdesc": "Makes the output restricted between 0 and 1",
+						"name": "clamp",
+						"type": "enum",
+						"values": [
+							{
+								"name": "false",
+								"value": "$(name_uv)_out"
+							},
+							{
+								"name": "true",
+								"value": "clamp($(name_uv)_out,vec3(0),vec3(1))"
+							}
+						]
+					}
+				],
+				"shortdesc": "Simplex Noise Octaves"
+			},
+			"type": "shader"
+		},
+		{
+			"name": "tex3d_colorize_3",
+			"node_position": {
+				"x": -677.642822,
+				"y": 28.714294
+			},
+			"parameters": {
+				"g": {
+					"interpolation": 1,
+					"points": [
+						{
+							"a": 1,
+							"b": 0,
+							"g": 0.435294,
+							"pos": 0,
+							"r": 1
+						},
+						{
+							"a": 1,
+							"b": 0.658824,
+							"g": 0.584314,
+							"pos": 1,
+							"r": 0
+						}
+					],
+					"type": "Gradient"
+				}
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"type": "tex3d_colorize"
+		},
+		{
+			"name": "sdf3d_smoothboolean",
+			"node_position": {
+				"x": -865.99353,
+				"y": 439.512939
+			},
+			"parameters": {
+				"k": 0.15,
+				"op": 1
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"type": "sdf3d_smoothboolean"
+		},
+		{
+			"name": "uniform",
+			"node_position": {
+				"x": -436.626221,
+				"y": 405.191925
+			},
+			"parameters": {
+				"color": {
+					"a": 1,
+					"b": 0.65098,
+					"g": 0.658824,
+					"r": 0.043137,
+					"type": "Color"
+				}
+			},
+			"seed": 0,
+			"seed_locked": false,
+			"type": "uniform"
+		}
+	],
+	"parameters": {
+
+	},
+	"seed": 0,
+	"seed_locked": false,
+	"shortdesc": "",
+	"type": "graph"
+}
