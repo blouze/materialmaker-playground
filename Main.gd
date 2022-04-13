@@ -31,9 +31,9 @@ func _physics_process(delta):
 	var mat = mesh.get_active_material(0)
 #	if Input.is_action_pressed("cam_left"):
 #	if Input.is_action_pressed("cam_right"):
-	if Input.is_action_pressed("cam_up"):
+	if Input.is_action_pressed("cam_up") or Input.is_key_pressed(KEY_S):
 		dest_rot += rot_incr
-	if Input.is_action_pressed("cam_down"):
+	if Input.is_action_pressed("cam_down") or Input.is_key_pressed(KEY_D):
 		dest_rot -= rot_incr
 	
 	var rot = mat.get_shader_param(prop_name)
