@@ -17,13 +17,13 @@ func _ready():
 	dest_rot = mat.get_shader_param(prop_name)
 
 func _physics_process(delta):
-	if Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed("move_left") or Input.is_action_pressed("ui_left"):
 		dest_transform.basis = dest_transform.basis.rotated(Vector3.UP, -delta * speed)
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed("move_right") or Input.is_action_pressed("ui_right"):
 		dest_transform.basis = dest_transform.basis.rotated(Vector3.UP, delta * speed)
-	if Input.is_action_pressed("move_up"):
+	if Input.is_action_pressed("move_up") or Input.is_action_pressed("ui_up"):
 		dest_transform.basis = dest_transform.basis.rotated(Vector3.RIGHT, -delta * speed)
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("move_down") or Input.is_action_pressed("ui_down"):
 		dest_transform.basis = dest_transform.basis.rotated(Vector3.RIGHT, delta * speed)
 	
 	mesh.transform = mesh.transform.interpolate_with(dest_transform, 1.0 / inertia)
